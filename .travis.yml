@@ -7,13 +7,15 @@ services:
 
 before_install:
   - chmod +x mvnw
-  - sudo apt-get install jq
-  - curl -LSs $(curl -LSs https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r '.assets | map({name, browser_download_url} | select(.name | endswith(".jar"))) | .[0].browser_download_url') -o codacy-coverage-reporter-assembly.jar
 
-after_success:
-  - java -jar codacy-coverage-reporter-assembly.jar report -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
+addons:
+  sonarcloud:
+    organization: "nikolabrodic"
+    token: $SONAR_KEY
+
 script:
   - ./mvnw clean install -DskipTests=false -B
+  - ./mvnw sonar:sonar -Dsonar.projectKey=$PROJECT_KEY -Dsonar.organization=nikolabrodic -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 
 dist: trusty
 
