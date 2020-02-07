@@ -20,7 +20,6 @@ import javax.annotation.PostConstruct;
 
 import static ftn.tim16.ClinicalCentreSystem.constants.ExaminationConstants.*;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -70,9 +69,7 @@ public class ExaminationControllerIntegrationTests {
                 .header("Authorization", accessToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.examinationList").value(hasSize(LIST_EXAMINATIONS_COUNT)))
-                .andExpect(jsonPath("$.examinationList.[*].status").value(hasItem(EXAMINATION_STATUS_AWAITING.toString())))
-                .andExpect(jsonPath("$.numberOfItems").value(LIST_EXAMINATIONS_COUNT));
+                .andExpect(jsonPath("$.examinationList.[*].status").value(hasItem(EXAMINATION_STATUS_AWAITING.toString())));
     }
 
 }
