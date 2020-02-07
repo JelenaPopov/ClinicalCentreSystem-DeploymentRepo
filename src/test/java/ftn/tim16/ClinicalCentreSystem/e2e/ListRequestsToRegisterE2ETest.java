@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListRequestsToRegisterE2ETest {
-    public static final String BASE_URL = "http://localhost:4200";
+    public static final String BASE_URL = "https://clinical-centre-system.herokuapp.com";
 
     private WebDriver driver;
 

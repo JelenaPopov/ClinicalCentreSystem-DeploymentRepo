@@ -125,7 +125,7 @@ public class PatientServiceImpl implements PatientService {
         sb.append(System.lineSeparator());
         sb.append("To activate your account click the following link:");
         sb.append(System.lineSeparator());
-        sb.append("http://localhost:4200/patient/account-activated/" + patientId);
+        sb.append("https://clinical-centre-system.herokuapp.com/patient/account-activated/" + patientId);
         String text = sb.toString();
 
         emailNotificationService.sendEmail(recipientEmail, subject, text);

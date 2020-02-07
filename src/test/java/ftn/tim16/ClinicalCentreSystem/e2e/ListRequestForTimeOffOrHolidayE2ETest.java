@@ -13,7 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class ListRequestForTimeOffOrHolidayE2ETest {
-    private static final String baseUrl = "http://localhost:4200/";
+    private static final String baseUrl = "https://clinical-centre-system.herokuapp.com";
     private WebDriver driver;
 
     private ListRequestForTimeOffOrHolidayPage listRequestForTimeOffOrHolidayPage;
