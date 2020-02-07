@@ -193,12 +193,12 @@ insert into medicine (label, chemical_composition, "usage") values ('Azithromyci
  'transmitted diseases. Its common side effects include loose stools, nausea, stomach pain, and vomiting. ');
 
  -- EXAMINATIONS FOR BUSINESS REPORT
-insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('07.01.2019 07:00', 'DD.MM.YYYY HH24:SS'), to_timestamp('07.01.2019 11:00', 'DD.MM.YYYY HH24:SS'));
+insert into date_time_interval (start_date_time, end_date_time) values (to_date('07.01.2019 07:00', 'DD.MM.YYYY HH24:MI'), to_date('07.01.2019 11:00', 'DD.MM.YYYY HH24:MI'));
 insert into examination (kind,interval_id,status,examination_type_id,clinic_id,clinic_administrator_id,room_id,patient_id,nurse_id, version)
  values ('EXAMINATION',1,'APPROVED',1,1,1,1,1,1,0);
 insert into examining (examination_id,doctor_id) values (1,1);
 
-insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('14.01.2019 08:00', 'DD.MM.YYYY HH24:SS'), to_timestamp('14.01.2019 11:00', 'DD.MM.YYYY HH24:SS'));
+insert into date_time_interval (start_date_time, end_date_time) values (to_date('14.01.2019 08:00', 'DD.MM.YYYY HH24:MI'), to_date('14.01.2019 11:00', 'DD.MM.YYYY HH24:MI'));
 insert into examination (kind,interval_id,status,examination_type_id,clinic_id,clinic_administrator_id,room_id,patient_id,nurse_id, version)
  values ('EXAMINATION',2,'APPROVED',1,1,1,1,2,3,0);
 insert into examining (examination_id,doctor_id) values (2,1);
