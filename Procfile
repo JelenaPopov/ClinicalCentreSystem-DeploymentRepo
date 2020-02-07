@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/clinical-centre-system-0.0.1-SNAPSHOT.war --server.port=$PORT $JAR_OPTS
+web: java $JAVA_OPTS -jar target/ClinicalCentreSystem-0.0.1-SNAPSHOT.war --server.port=$PORT $JAR_OPTS
