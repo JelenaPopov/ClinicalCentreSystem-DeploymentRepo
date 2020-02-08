@@ -32,7 +32,7 @@ import java.util.Set;
 @Transactional(readOnly = true)
 public class DoctorServiceImpl implements DoctorService {
 
-    private static final String timeFormat = "HH:mm";
+    private static final String TIME_FORMAT = "HH:mm";
 
     @Autowired
     private DoctorRepository doctorRepository;
@@ -227,8 +227,8 @@ public class DoctorServiceImpl implements DoctorService {
             return null;
         }
 
-        LocalTime workHoursFrom = LocalTime.parse(editDoctorDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern(timeFormat));
-        LocalTime workHoursTo = LocalTime.parse(editDoctorDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern(timeFormat));
+        LocalTime workHoursFrom = LocalTime.parse(editDoctorDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern(TIME_FORMAT));
+        LocalTime workHoursTo = LocalTime.parse(editDoctorDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern(TIME_FORMAT));
         ExaminationType examinationType = examinationTypeService.findById(editDoctorDTO.getSpecialized().getId());
         if (workHoursFrom.isAfter(workHoursTo) || examinationType == null) {
             return null;
@@ -308,8 +308,8 @@ public class DoctorServiceImpl implements DoctorService {
             return null;
         }
 
-        LocalTime workHoursFrom = LocalTime.parse(doctor.getWorkHoursFrom(), DateTimeFormatter.ofPattern(timeFormat));
-        LocalTime workHoursTo = LocalTime.parse(doctor.getWorkHoursTo(), DateTimeFormatter.ofPattern(timeFormat));
+        LocalTime workHoursFrom = LocalTime.parse(doctor.getWorkHoursFrom(), DateTimeFormatter.ofPattern(TIME_FORMAT));
+        LocalTime workHoursTo = LocalTime.parse(doctor.getWorkHoursTo(), DateTimeFormatter.ofPattern(TIME_FORMAT));
         ExaminationType examinationType = examinationTypeService.findById(doctor.getSpecialized().getId());
         if (workHoursFrom.isAfter(workHoursTo) || examinationType == null) {
             return null;

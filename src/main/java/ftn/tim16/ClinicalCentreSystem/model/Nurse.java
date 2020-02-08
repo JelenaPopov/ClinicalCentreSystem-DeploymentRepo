@@ -241,12 +241,8 @@ public class Nurse implements UserDetails {
     }
 
     public boolean isAvailable(LocalTime startExaminationTime, LocalTime endExaminationTime) {
-        if (((startExaminationTime.isAfter(workHoursFrom) || startExaminationTime.equals(workHoursFrom)) && startExaminationTime.isBefore(workHoursTo))
-                && (endExaminationTime.isAfter(workHoursFrom) && (endExaminationTime.isBefore(workHoursTo) || endExaminationTime.equals(workHoursTo)))) {
-            return true;
-        }
-
-        return false;
+        return (((startExaminationTime.isAfter(workHoursFrom) || startExaminationTime.equals(workHoursFrom)) && startExaminationTime.isBefore(workHoursTo))
+                && (endExaminationTime.isAfter(workHoursFrom) && (endExaminationTime.isBefore(workHoursTo) || endExaminationTime.equals(workHoursTo))));
     }
 
     @Override

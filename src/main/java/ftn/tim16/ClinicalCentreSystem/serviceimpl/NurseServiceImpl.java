@@ -34,6 +34,9 @@ import java.util.Set;
 @Service
 @Transactional(readOnly = true)
 public class NurseServiceImpl implements NurseService {
+
+    private static final String TIME_FORMAT = "HH:mm"
+
     @Autowired
     private NurseRepository nurseRepository;
 
@@ -91,8 +94,8 @@ public class NurseServiceImpl implements NurseService {
             return null;
         }
 
-        LocalTime workHoursFrom = LocalTime.parse(nurseDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern("HH:mm"));
-        LocalTime workHoursTo = LocalTime.parse(nurseDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime workHoursFrom = LocalTime.parse(nurseDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern(TIME_FORMAT));
+        LocalTime workHoursTo = LocalTime.parse(nurseDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern(TIME_FORMAT));
         if (workHoursFrom.isAfter(workHoursTo)) {
             return null;
         }
@@ -201,8 +204,8 @@ public class NurseServiceImpl implements NurseService {
             return null;
         }
 
-        LocalTime workHoursFrom = LocalTime.parse(editNurseDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern("HH:mm"));
-        LocalTime workHoursTo = LocalTime.parse(editNurseDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime workHoursFrom = LocalTime.parse(editNurseDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern(TIME_FORMAT));
+        LocalTime workHoursTo = LocalTime.parse(editNurseDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern(TIME_FORMAT));
         if (workHoursFrom.isAfter(workHoursTo)) {
             return null;
         }
