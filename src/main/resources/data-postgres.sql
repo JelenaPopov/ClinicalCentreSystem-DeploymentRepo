@@ -401,39 +401,39 @@ insert into prescription(status, examination_report_id, medicine_id, nurse_id)
 
 -- TIME-OFFS DOCTOR
  insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('20.03.2020 09:00', 'DD.MM.YYYY HH24:MI'), to_timestamp('28.03.2020 17:00', 'DD.MM.YYYY HH24:MI'));
-insert into time_off_doctor (status, type, doctor_id, interval_id)
- values ('REJECTED', 'HOLIDAY', 1, 32);
-insert into time_off_doctor (status, type, doctor_id, interval_id)
- values ('APPROVED', 'TIME_OFF', 2, 32);
-insert into time_off_doctor (status, type, doctor_id, interval_id)
- values ('AWAITING', 'TIME_OFF', 3, 32);
+ insert into time_off_doctor (status, type, doctor_id, interval_id, version)
+ values ('REJECTED', 'HOLIDAY', 1, 32, 0);
+ insert into time_off_doctor (status, type, doctor_id, interval_id, version)
+ values ('APPROVED', 'TIME_OFF', 2, 32, 0);
+ insert into time_off_doctor (status, type, doctor_id, interval_id, version)
+ values ('AWAITING', 'TIME_OFF', 3, 32, 0);
 
  insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('20.10.2020 09:00', 'DD.MM.YYYY HH24:MI'), to_timestamp('20.10.2020 17:00', 'DD.MM.YYYY HH24:MI'));
- insert into time_off_doctor (status, type, doctor_id, interval_id)
- values ('AWAITING', 'TIME_OFF', 3, 33);
+ insert into time_off_doctor (status, type, doctor_id, interval_id, version)
+ values ('AWAITING', 'TIME_OFF', 3, 33, 0);
 
  insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('22.11.2020 09:00', 'DD.MM.YYYY HH24:MI'), to_timestamp('28.11.2020 17:00', 'DD.MM.YYYY HH24:MI'));
- insert into time_off_doctor (status, type, doctor_id, interval_id)
- values ('AWAITING', 'TIME_OFF', 1, 34);
+ insert into time_off_doctor (status, type, doctor_id, interval_id, version)
+ values ('AWAITING', 'TIME_OFF', 1, 34, 0);
 
 -- TIME-OFFS NURSES
  insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('24.03.2019 09:30', 'DD.MM.YYYY HH24:MI'), to_timestamp('26.03.2019 13:30', 'DD.MM.YYYY HH24:MI'));
-insert into time_off_nurse (status, type, nurse_id, interval_id)
- values ('APPROVED', 'HOLIDAY', 1, 35);
- insert into time_off_nurse (status, type, nurse_id, interval_id)
- values ('REJECTED', 'HOLIDAY', 2, 35);
+ insert into time_off_nurse (status, type, nurse_id, interval_id, version)
+ values ('APPROVED', 'HOLIDAY', 1, 35, 0);
+ insert into time_off_nurse (status, type, nurse_id, interval_id, version)
+ values ('REJECTED', 'HOLIDAY', 2, 35, 0);
 
  insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('22.07.2020 09:00', 'DD.MM.YYYY HH24:MI'), to_timestamp('28.07.2020 17:00', 'DD.MM.YYYY HH24:MI'));
- insert into time_off_nurse (status, type, nurse_id, interval_id)
- values ('AWAITING', 'TIME_OFF', 2, 36);
+ insert into time_off_nurse (status, type, nurse_id, interval_id, version)
+ values ('AWAITING', 'TIME_OFF', 2, 36, 0);
 
  insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('02.08.2020 09:00', 'DD.MM.YYYY HH24:MI'), to_timestamp('18.08.2020 17:00', 'DD.MM.YYYY HH24:MI'));
- insert into time_off_nurse (status, type, nurse_id, interval_id)
- values ('AWAITING', 'HOLIDAY', 3, 37);
+ insert into time_off_nurse (status, type, nurse_id, interval_id, version)
+ values ('AWAITING', 'HOLIDAY', 3, 37, 0);
 
  insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('02.08.2020 09:00', 'DD.MM.YYYY HH24:MI'), to_timestamp('10.08.2020 17:00', 'DD.MM.YYYY HH24:MI'));
- insert into time_off_nurse (status, type, nurse_id, interval_id)
- values ('AWAITING', 'TIME_OFF', 4, 38);
+insert into time_off_nurse (status, type, nurse_id, interval_id, version)
+ values ('AWAITING', 'TIME_OFF', 4, 38, 0);
 
 -- EXAMINATIONS FOR CHANGING TIME WHEN ASSIGNING ROOM
  insert into date_time_interval (start_date_time, end_date_time) values (to_timestamp('19.05.2020 09:00', 'DD.MM.YYYY HH24:MI'), to_timestamp('19.05.2020 10:00', 'DD.MM.YYYY HH24:MI'));
