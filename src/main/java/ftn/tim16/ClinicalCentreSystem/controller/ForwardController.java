@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ForwardController {
-
-    @RequestMapping(value = "/{[path:[^\\.]*}")
-    public String redirect() {
+    /*
+     * Redirects all routes to FrontEnd except: '/', '/index.html', '/api', '/api/**'
+     */
+    @RequestMapping(value = "{_:^(?!index\\.html|api).*$}")
+    public String redirectApi() {
         return "forward:/";
     }
 }
