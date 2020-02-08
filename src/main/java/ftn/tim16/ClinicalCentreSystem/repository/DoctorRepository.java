@@ -32,7 +32,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     List<Doctor> findByFirstNameContainsIgnoringCaseAndLastNameContainsIgnoringCaseAndDoctorRating(String firstName, String lastName, int doctorRating);
 
-    List<Doctor> findByClinicIdAndSpecializedIdAndStatusNot(Long clinic_id, Long specialized, DoctorStatus status);
+    List<Doctor> findByClinicIdAndSpecializedIdAndStatusNot(Long clinicId, Long specialized, DoctorStatus status);
 
     List<Doctor> findByStatusNotAndClinicIdAndSpecializedId(DoctorStatus status, Long clinicId, Long specializedId);
 

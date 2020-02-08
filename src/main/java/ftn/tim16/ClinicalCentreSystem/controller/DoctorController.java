@@ -138,9 +138,7 @@ public class DoctorController {
                     doctorService.getDoctor(doctorId), LocalDateTime.parse(searchStartTime, formatter),
                     LocalDateTime.parse(searchEndTime, formatter));
             return new ResponseEntity<>(isAvailable, HttpStatus.OK);
-        } catch (DateTimeParseException ex) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } catch (NumberFormatException num) {
+        } catch (DateTimeParseException | NumberFormatException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

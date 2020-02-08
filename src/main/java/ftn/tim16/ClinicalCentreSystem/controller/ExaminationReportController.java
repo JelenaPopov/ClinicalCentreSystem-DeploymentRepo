@@ -107,9 +107,7 @@ public class ExaminationReportController {
         }
         if (doctor == null) {
             Nurse nurse = nurseService.getLoginNurse();
-            if (nurse == null) {
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-            } else if (!examinationService.hasNurseHeldExaminationForPatient(nurse, patient)) {
+            if (nurse == null || !examinationService.hasNurseHeldExaminationForPatient(nurse, patient)) {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
         }

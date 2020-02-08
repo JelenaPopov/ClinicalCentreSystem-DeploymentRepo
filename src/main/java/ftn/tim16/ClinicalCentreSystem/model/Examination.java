@@ -28,7 +28,7 @@ public class Examination {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "examining", joinColumns = @JoinColumn(name = "examination_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"))
-    private Set<Doctor> doctors = new HashSet<Doctor>();
+    private Set<Doctor> doctors = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Room room;
@@ -82,7 +82,7 @@ public class Examination {
         this.doctorRating = 0;
         this.clinicRating = 0;
 
-        doctors = new HashSet<Doctor>();
+        doctors = new HashSet<>();
 
     }
 
@@ -102,7 +102,7 @@ public class Examination {
         this.doctorRating = 0;
         this.clinicRating = 0;
         this.patient = patient;
-        doctors = new HashSet<Doctor>();
+        doctors = new HashSet<>();
 
     }
 

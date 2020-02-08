@@ -43,7 +43,7 @@ public class Room {
         this.label = label;
         this.kind = kind;
         this.clinic = clinic;
-        this.examinations = new HashSet<Examination>();
+        this.examinations = new HashSet<>();
         this.status = LogicalStatus.EXISTING;
     }
 

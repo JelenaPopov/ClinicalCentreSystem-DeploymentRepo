@@ -23,7 +23,7 @@ public interface NurseService {
 
     boolean canGetTimeOff(Nurse nurse, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
-    Nurse getRandomNurse(Long clinic_id, LocalDateTime startDateTime, LocalDateTime endDateTime);
+    Nurse getRandomNurse(Long clinicId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
     Nurse getLoginNurse();
 

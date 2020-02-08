@@ -24,12 +24,12 @@ public class PrescriptionDTO {
     }
 
     public PrescriptionDTO(Prescription prescription) {
-        Doctor doctor = prescription.getExaminationReport().getDoctor();
-        Patient patient = prescription.getExaminationReport().getExamination().getPatient();
+        Doctor doctorObj = prescription.getExaminationReport().getDoctor();
+        Patient patientObj = prescription.getExaminationReport().getExamination().getPatient();
         this.id = prescription.getId();
         this.medicine = prescription.getMedicine().getLabel();
-        this.doctor = doctor.getFirstName() + " " + doctor.getLastName();
-        this.patient = patient.getFirstName() + " " + patient.getLastName();
+        this.doctor = doctorObj.getFirstName() + " " + doctorObj.getLastName();
+        this.patient = patientObj.getFirstName() + " " + patientObj.getLastName();
     }
 
     public Long getId() {

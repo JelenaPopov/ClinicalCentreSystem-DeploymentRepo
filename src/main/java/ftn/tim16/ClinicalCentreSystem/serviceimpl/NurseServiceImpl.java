@@ -170,8 +170,8 @@ public class NurseServiceImpl implements NurseService {
         return nursesDTO;
     }
 
-    public Nurse getRandomNurse(Long clinic_id, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        List<Nurse> nurses = getAvailable(clinic_id, startDateTime, endDateTime);
+    public Nurse getRandomNurse(Long clinicId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        List<Nurse> nurses = getAvailable(clinicId, startDateTime, endDateTime);
         if (nurses.isEmpty()) {
             return null;
         }
@@ -197,7 +197,7 @@ public class NurseServiceImpl implements NurseService {
     public NurseDTO editPersonalInformation(EditNurseDTO editNurseDTO) {
         Nurse nurse = getLoginNurse();
 
-        if (nurse.getId() != editNurseDTO.getId()) {
+        if (nurse.getId().equals(editNurseDTO.getId())) {
             return null;
         }
 
@@ -226,10 +226,7 @@ public class NurseServiceImpl implements NurseService {
     private boolean isEditable(Long nurseId) {
         List<Examination> upcomingExaminations = examinationService.getNurseUpcomingExaminations(nurseId);
 
-        if (upcomingExaminations != null && !upcomingExaminations.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !(upcomingExaminations != null && !upcomingExaminations.isEmpty());
     }
 
     @Override
@@ -251,8 +248,8 @@ public class NurseServiceImpl implements NurseService {
         return nurseRepository.findByPhoneNumber(phoneNumber);
     }
 
-    private List<Nurse> getAvailable(Long clinic_id, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        List<Nurse> nurses = nurseRepository.findByClinicId(clinic_id);
+    private List<Nurse> getAvailable(Long clinicId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        List<Nurse> nurses = nurseRepository.findByClinicId(clinicId);
         List<Nurse> availableNurses = new ArrayList<>();
         for (Nurse nurse : nurses) {
             if (isAvailable(nurse, startDateTime, endDateTime)) {

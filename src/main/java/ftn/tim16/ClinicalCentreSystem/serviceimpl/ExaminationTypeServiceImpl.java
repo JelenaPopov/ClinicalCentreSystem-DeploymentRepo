@@ -51,7 +51,7 @@ public class ExaminationTypeServiceImpl implements ExaminationTypeService {
             return null;
         }
         ExaminationType examinationTypeWithSameLabel = examinationTypeRepository.findByLabelIgnoringCase(examinationType.getLabel());
-        if (examinationTypeWithSameLabel != null && examinationTypeWithSameLabel.getId() != examinationType.getId()) {
+        if (examinationTypeWithSameLabel != null && examinationTypeWithSameLabel.getId().equals(examinationType.getId())) {
             return null;
         }
         if (!isEditable(examinationType.getId(), existingExaminationType.getClinic().getId(), clinicId)) {
@@ -105,7 +105,7 @@ public class ExaminationTypeServiceImpl implements ExaminationTypeService {
         if (examinationType == null) {
             return null;
         }
-        if (examinationType.getClinic().getId() != clinicId) {
+        if (examinationType.getClinic().getId().equals(clinicId)) {
             return null;
         }
 
@@ -118,7 +118,7 @@ public class ExaminationTypeServiceImpl implements ExaminationTypeService {
     }
 
     private boolean isEditable(Long examinationTypeId, Long examinationTypeClinicId, Long clinicId) {
-        if (examinationTypeClinicId != clinicId) {
+        if (examinationTypeClinicId.equals(clinicId)) {
             return false;
         }
         List<Doctor> doctors = doctorService.findDoctorsByClinicIdAndExaminationTypeId(clinicId, examinationTypeId);

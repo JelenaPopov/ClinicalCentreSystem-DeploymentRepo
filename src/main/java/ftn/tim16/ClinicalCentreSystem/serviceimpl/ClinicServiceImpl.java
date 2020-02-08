@@ -75,9 +75,9 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     public Integer getClinicRevenue(Long id, String startDateTime, String endDateTime) {
-        LocalDateTime startDate = LocalDateTime.of(getDate(startDateTime.toString()), LocalTime.of(0, 0));
+        LocalDateTime startDate = LocalDateTime.of(getDate(startDateTime), LocalTime.of(0, 0));
 
-        LocalDateTime endDate = LocalDateTime.of(getDate(endDateTime.toString()), LocalTime.of(0, 0, 0));
+        LocalDateTime endDate = LocalDateTime.of(getDate(endDateTime), LocalTime.of(0, 0, 0));
         if (startDate.isAfter(endDate) || startDate.isAfter(LocalDateTime.now())) {
             return null;
         }
@@ -112,8 +112,7 @@ public class ClinicServiceImpl implements ClinicService {
 
         List<Examination> onSun = getDailyStatistic(examinations, 7);
 
-        int[] statistic = {onMonday.size(), onTue.size(), onWen.size(), onThu.size(), onFri.size(), onSat.size(), onSun.size()};
-        return statistic;
+        return new int[]{onMonday.size(), onTue.size(), onWen.size(), onThu.size(), onFri.size(), onSat.size(), onSun.size()};
     }
 
 
@@ -143,8 +142,7 @@ public class ClinicServiceImpl implements ClinicService {
 
         List<Examination> fourth = getWeekStatistic(examinations, 22, 28);
 
-        int[] statistic = {first.size(), sec.size(), third.size(), fourth.size()};
-        return statistic;
+        return new int[]{first.size(), sec.size(), third.size(), fourth.size()};
     }
 
     @Override
@@ -175,8 +173,7 @@ public class ClinicServiceImpl implements ClinicService {
 
         List<Examination> dec = getMountExamination(examinations, 12);
 
-        int[] statistic = {jan.size(), feb.size(), march.size(), april.size(), may.size(), june.size(), july.size(), aug.size(), sep.size(), october.size(), nov.size(), dec.size()};
-        return statistic;
+        return new int[]{jan.size(), feb.size(), march.size(), april.size(), may.size(), june.size(), july.size(), aug.size(), sep.size(), october.size(), nov.size(), dec.size()};
     }
 
     private List<Examination> getMountExamination(List<Examination> examinations, int value) {
@@ -194,14 +191,14 @@ public class ClinicServiceImpl implements ClinicService {
 
         Clinic existingClinic = clinicRepository.findOneById(clinicDTO.getId());
 
-        if (existingClinic == null || existingClinic.getId() != clinicIdInWhichAdminWorks) {
+        if (existingClinic == null || existingClinic.getId().equals(clinicIdInWhichAdminWorks)) {
             return null;
         }
 
         Clinic clinicWithSameName = findByName(clinicDTO.getName());
         Clinic clinicWithSameAddress = findByAddress(clinicDTO.getAddress());
-        if ((clinicWithSameName != null && clinicWithSameName.getId() != existingClinic.getId())
-                || (clinicWithSameAddress != null && clinicWithSameAddress.getId() != existingClinic.getId())) {
+        if ((clinicWithSameName != null && clinicWithSameName.getId().equals(existingClinic.getId()))
+                || (clinicWithSameAddress != null && clinicWithSameAddress.getId().equals(existingClinic.getId()))) {
 
             return null;
         }

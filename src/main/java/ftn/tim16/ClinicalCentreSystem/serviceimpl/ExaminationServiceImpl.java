@@ -112,15 +112,14 @@ public class ExaminationServiceImpl implements ExaminationService {
     @Override
     public ExaminationPagingDTO getAwaitingExaminations(String kind, ClinicAdministrator clinicAdministrator, Pageable page) {
         ExaminationKind examinationKind = getKind(kind);
-        if (kind == null) {
+        if (examinationKind == null) {
             return null;
         }
         List<Examination> examinations = examinationRepository.findByClinicAdministratorIdAndStatusAndKindAndIntervalStartDateTimeAfter
                 (clinicAdministrator.getId(), ExaminationStatus.AWAITING, examinationKind, LocalDateTime.now());
 
-        ExaminationPagingDTO examinationPagingDTO = new ExaminationPagingDTO(examinationRepository.findByClinicAdministratorIdAndStatusAndKindAndIntervalStartDateTimeAfter
+        return new ExaminationPagingDTO(examinationRepository.findByClinicAdministratorIdAndStatusAndKindAndIntervalStartDateTimeAfter
                 (clinicAdministrator.getId(), ExaminationStatus.AWAITING, examinationKind, LocalDateTime.now(), page).getContent(), examinations.size());
-        return examinationPagingDTO;
     }
 
     @Override
@@ -138,8 +137,8 @@ public class ExaminationServiceImpl implements ExaminationService {
                 (clinicAdministrator.getId(), statuses);
         Page<Examination> pageExaminations = examinationRepository.findByClinicAdministratorIdAndStatusIn
                 (clinicAdministrator.getId(), statuses, page);
-        ExaminationPagingDTO examinationPagingDTO = new ExaminationPagingDTO(pageExaminations.getContent(), examinations.size());
-        return examinationPagingDTO;
+
+        return new ExaminationPagingDTO(pageExaminations.getContent(), examinations.size());
     }
 
     @Override
@@ -171,9 +170,8 @@ public class ExaminationServiceImpl implements ExaminationService {
         List<Examination> examinations = examinationRepository.findByDoctorsIdAndStatusNotAndIntervalStartDateTimeAfter
                 (doctor.getId(), ExaminationStatus.CANCELED, LocalDateTime.now());
 
-        ExaminationPagingDTO examinationPagingDTO = new ExaminationPagingDTO(examinationRepository.findByDoctorsIdAndStatusNotAndIntervalStartDateTimeAfter
+        return new ExaminationPagingDTO(examinationRepository.findByDoctorsIdAndStatusNotAndIntervalStartDateTimeAfter
                 (doctor.getId(), ExaminationStatus.CANCELED, LocalDateTime.now(), page).getContent(), examinations.size());
-        return examinationPagingDTO;
     }
 
     @Override
@@ -186,7 +184,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 
         boolean foundDoctor = false;
         for (Doctor doc : examination.getDoctors()) {
-            if (doc.getId() == doctor.getId()) {
+            if (doc.getId().equals(doctor.getId())) {
                 foundDoctor = true;
                 break;
             }
@@ -232,7 +230,7 @@ public class ExaminationServiceImpl implements ExaminationService {
         } catch (Exception p) {
             return null;
         }
-        if (examinationType == null || doctor == null || room == null || examinationType.getId() != doctor.getSpecialized().getId()) {
+        if (examinationType == null || doctor == null || room == null || examinationType.getId().equals(doctor.getSpecialized().getId())) {
             return null;
         }
 
@@ -317,7 +315,7 @@ public class ExaminationServiceImpl implements ExaminationService {
         emailNotificationService.sendEmail(patient.getEmail(), subject, text);
         if (examination.getKind().equals(ExaminationKind.OPERATION)) {
             for (Doctor doc : examination.getDoctors()) {
-                if (doc.getId() != doctor.getId()) {
+                if (doc.getId().equals(doctor.getId())) {
                     emailNotificationService.sendEmail(doc.getEmail(), subject, text);
                 }
             }
@@ -376,7 +374,7 @@ public class ExaminationServiceImpl implements ExaminationService {
             } catch (Exception e) {
                 return null;
             }
-            if (examinationType == null || doctor == null || examinationType.getId() != doctor.getSpecialized().getId() || !doctorService.isAvailable(doctor, startDateTime, endDateTime)) {
+            if (examinationType == null || doctor == null || examinationType.getId().equals(doctor.getSpecialized().getId()) || !doctorService.isAvailable(doctor, startDateTime, endDateTime)) {
                 return null;
             }
 

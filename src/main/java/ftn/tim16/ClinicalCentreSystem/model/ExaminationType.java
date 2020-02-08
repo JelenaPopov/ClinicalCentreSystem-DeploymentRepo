@@ -123,11 +123,11 @@ public class ExaminationType {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ExaminationType ExaminationType = (ExaminationType) o;
-        if (ExaminationType.id == null || id == null) {
+        ExaminationType examinationType = (ExaminationType) o;
+        if (examinationType.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, ExaminationType.id);
+        return Objects.equals(id, examinationType.id);
     }
 
     @Override

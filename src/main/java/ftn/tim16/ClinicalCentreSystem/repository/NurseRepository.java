@@ -15,7 +15,6 @@ public interface NurseRepository extends JpaRepository<Nurse, Long> {
     Nurse findByEmail(String email);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-        //@QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "0")})
     Nurse findOneById(Long id);
 
     Nurse findByIdAndStatus(Long id, UserStatus userStatus);

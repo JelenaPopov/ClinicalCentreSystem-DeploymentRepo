@@ -32,6 +32,8 @@ import java.util.Set;
 @Transactional(readOnly = true)
 public class DoctorServiceImpl implements DoctorService {
 
+    private static final String timeFormat = "HH:mm";
+
     @Autowired
     private DoctorRepository doctorRepository;
 
@@ -197,7 +199,7 @@ public class DoctorServiceImpl implements DoctorService {
         if (doctor == null) {
             return null;
         }
-        if (doctor.getClinic().getId() != clinicId || !isEditable(id)) {
+        if (doctor.getClinic().getId().equals(clinicId) || !isEditable(id)) {
             return null;
         }
 
@@ -208,10 +210,7 @@ public class DoctorServiceImpl implements DoctorService {
     private boolean isEditable(Long doctorId) {
         List<Examination> upcomingExaminations = examinationService.getDoctorUpcomingExaminations(doctorId);
 
-        if (upcomingExaminations != null && !upcomingExaminations.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !(upcomingExaminations != null && !upcomingExaminations.isEmpty());
     }
 
     @Override
@@ -224,12 +223,12 @@ public class DoctorServiceImpl implements DoctorService {
     public DoctorDTO editPersonalInformation(EditDoctorDTO editDoctorDTO) {
         Doctor doctor = getLoginDoctor();
 
-        if (doctor.getId() != editDoctorDTO.getId()) {
+        if (doctor.getId().equals(editDoctorDTO.getId())) {
             return null;
         }
 
-        LocalTime workHoursFrom = LocalTime.parse(editDoctorDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern("HH:mm"));
-        LocalTime workHoursTo = LocalTime.parse(editDoctorDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime workHoursFrom = LocalTime.parse(editDoctorDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern(timeFormat));
+        LocalTime workHoursTo = LocalTime.parse(editDoctorDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern(timeFormat));
         ExaminationType examinationType = examinationTypeService.findById(editDoctorDTO.getSpecialized().getId());
         if (workHoursFrom.isAfter(workHoursTo) || examinationType == null) {
             return null;
@@ -237,7 +236,7 @@ public class DoctorServiceImpl implements DoctorService {
         if (doctorRepository.findByPhoneNumberAndIdNot(editDoctorDTO.getPhoneNumber(), editDoctorDTO.getId()) != null) {
             return null;
         }
-        if (!workHoursFrom.equals(doctor.getWorkHoursFrom()) || !workHoursTo.equals(doctor.getWorkHoursTo()) || doctor.getSpecialized().getId() != editDoctorDTO.getSpecialized().getId()) {
+        if (!workHoursFrom.equals(doctor.getWorkHoursFrom()) || !workHoursTo.equals(doctor.getWorkHoursTo()) || doctor.getSpecialized().getId().equals(editDoctorDTO.getSpecialized().getId())) {
             if (!isEditable(editDoctorDTO.getId())) {
                 return null;
             }
@@ -290,7 +289,7 @@ public class DoctorServiceImpl implements DoctorService {
 
         if (!examinations.isEmpty()) {
             for (Examination examination : examinations) {
-                if (examination.getId() != assignedExamination.getId() && !examination.getInterval().isAvailable(startDateTime, endDateTime)) {
+                if (examination.getId().equals(assignedExamination.getId()) && !examination.getInterval().isAvailable(startDateTime, endDateTime)) {
                     return false;
                 }
             }
@@ -308,8 +307,8 @@ public class DoctorServiceImpl implements DoctorService {
             return null;
         }
 
-        LocalTime workHoursFrom = LocalTime.parse(doctor.getWorkHoursFrom(), DateTimeFormatter.ofPattern("HH:mm"));
-        LocalTime workHoursTo = LocalTime.parse(doctor.getWorkHoursTo(), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime workHoursFrom = LocalTime.parse(doctor.getWorkHoursFrom(), DateTimeFormatter.ofPattern(timeFormat));
+        LocalTime workHoursTo = LocalTime.parse(doctor.getWorkHoursTo(), DateTimeFormatter.ofPattern(timeFormat));
         ExaminationType examinationType = examinationTypeService.findById(doctor.getSpecialized().getId());
         if (workHoursFrom.isAfter(workHoursTo) || examinationType == null) {
             return null;

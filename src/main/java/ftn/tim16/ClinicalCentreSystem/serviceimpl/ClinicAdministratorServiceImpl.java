@@ -78,7 +78,7 @@ public class ClinicAdministratorServiceImpl implements ClinicAdministratorServic
     public ClinicAdministratorDTO editPersonalInformation(EditClinicAdminDTO editClinicAdminDTO) {
         ClinicAdministrator clinicAdministrator = getLoginAdmin();
 
-        if (clinicAdministrator.getId() != editClinicAdminDTO.getId()) {
+        if (clinicAdministrator.getId().equals(editClinicAdminDTO.getId())) {
             return null;
         }
         if (clinicAdministratorRepository.findByPhoneNumberAndIdNot(editClinicAdminDTO.getPhoneNumber(), editClinicAdminDTO.getId()) != null) {

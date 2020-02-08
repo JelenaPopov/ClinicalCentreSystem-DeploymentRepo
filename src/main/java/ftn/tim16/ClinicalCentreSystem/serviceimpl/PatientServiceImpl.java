@@ -63,7 +63,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<AwaitingApprovalPatientDTO> findByStatus(PatientStatus patientStatus) {
         List<Patient> patients = patientRepository.findByStatus(patientStatus);
-        List<AwaitingApprovalPatientDTO> patientsDTO = new ArrayList<AwaitingApprovalPatientDTO>();
+        List<AwaitingApprovalPatientDTO> patientsDTO = new ArrayList<>();
         for (Patient patient : patients) {
             patientsDTO.add(new AwaitingApprovalPatientDTO(patient));
         }
@@ -82,9 +82,6 @@ public class PatientServiceImpl implements PatientService {
         patient.setStatus(PatientStatus.APPROVED);
 
         Patient updatedPatient = patientRepository.saveAndFlush(patient);
-        if (updatedPatient == null) {
-            return null;
-        }
 
         medicalRecordService.create(updatedPatient);
 

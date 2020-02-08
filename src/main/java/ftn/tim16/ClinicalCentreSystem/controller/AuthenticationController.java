@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,7 +38,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<LoggedInUserDTO> login(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException, IOException {
+    public ResponseEntity<LoggedInUserDTO> login(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
 
         try {
             LoggedInUserDTO loggedInUserDTO = authenticationService.login(authenticationRequest);

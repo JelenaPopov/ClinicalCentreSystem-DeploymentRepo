@@ -102,7 +102,7 @@ public class Doctor implements UserDetails {
         this.specialized = specialized;
         this.status = status;
         this.timeOffDoctors = new HashSet<>();
-        this.examinations = new HashSet<Examination>();
+        this.examinations = new HashSet<>();
         this.authorities = authorities;
         this.doctorRating = 0.0;
     }
@@ -269,11 +269,11 @@ public class Doctor implements UserDetails {
     }
 
     public boolean isAvailable(LocalTime startExaminationTime, LocalTime endExaminationTime) {
-        if ((startExaminationTime.isAfter(workHoursFrom) || startExaminationTime.equals(workHoursFrom)) && startExaminationTime.isBefore(workHoursTo)) {
-            if (endExaminationTime.isAfter(workHoursFrom) && (endExaminationTime.isBefore(workHoursTo) || endExaminationTime.equals(workHoursTo))) {
-                return true;
-            }
+        if (((startExaminationTime.isAfter(workHoursFrom) || startExaminationTime.equals(workHoursFrom)) && startExaminationTime.isBefore(workHoursTo))
+                && (endExaminationTime.isAfter(workHoursFrom) && (endExaminationTime.isBefore(workHoursTo) || endExaminationTime.equals(workHoursTo)))) {
+            return true;
         }
+
         return false;
     }
 
