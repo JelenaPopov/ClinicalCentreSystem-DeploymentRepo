@@ -35,7 +35,7 @@ import java.util.Set;
 @Transactional(readOnly = true)
 public class NurseServiceImpl implements NurseService {
 
-    private static final String TIME_FORMAT = "HH:mm"
+    private static final String TIME_FORMAT = "HH:mm";
 
     @Autowired
     private NurseRepository nurseRepository;
