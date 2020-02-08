@@ -230,7 +230,7 @@ public class ExaminationServiceImpl implements ExaminationService {
         } catch (Exception p) {
             return null;
         }
-        if (examinationType == null || doctor == null || room == null || examinationType.getId().equals(doctor.getSpecialized().getId())) {
+        if (examinationType == null || doctor == null || room == null || !examinationType.getId().equals(doctor.getSpecialized().getId())) {
             return null;
         }
 
@@ -315,7 +315,7 @@ public class ExaminationServiceImpl implements ExaminationService {
         emailNotificationService.sendEmail(patient.getEmail(), subject, text);
         if (examination.getKind().equals(ExaminationKind.OPERATION)) {
             for (Doctor doc : examination.getDoctors()) {
-                if (doc.getId().equals(doctor.getId())) {
+                if (!doc.getId().equals(doctor.getId())) {
                     emailNotificationService.sendEmail(doc.getEmail(), subject, text);
                 }
             }
@@ -374,7 +374,8 @@ public class ExaminationServiceImpl implements ExaminationService {
             } catch (Exception e) {
                 return null;
             }
-            if (examinationType == null || doctor == null || examinationType.getId().equals(doctor.getSpecialized().getId()) || !doctorService.isAvailable(doctor, startDateTime, endDateTime)) {
+            if (examinationType == null || doctor == null || !examinationType.getId().equals(doctor.getSpecialized().getId()) ||
+                    !doctorService.isAvailable(doctor, startDateTime, endDateTime)) {
                 return null;
             }
 

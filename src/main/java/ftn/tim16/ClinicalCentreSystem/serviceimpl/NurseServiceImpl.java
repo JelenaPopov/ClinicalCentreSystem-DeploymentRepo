@@ -197,7 +197,7 @@ public class NurseServiceImpl implements NurseService {
     public NurseDTO editPersonalInformation(EditNurseDTO editNurseDTO) {
         Nurse nurse = getLoginNurse();
 
-        if (nurse.getId().equals(editNurseDTO.getId())) {
+        if (!nurse.getId().equals(editNurseDTO.getId())) {
             return null;
         }
 

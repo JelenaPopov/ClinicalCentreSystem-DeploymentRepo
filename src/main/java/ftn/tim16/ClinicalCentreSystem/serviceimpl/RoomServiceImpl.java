@@ -78,7 +78,7 @@ public class RoomServiceImpl implements RoomService {
             return null;
         }
         Room roomWithSameLabel = roomRepository.findByLabelIgnoringCase(roomDTO.getLabel());
-        if (roomWithSameLabel != null && roomWithSameLabel.getId().equals(existingRoom.getId())) {
+        if (roomWithSameLabel != null && !roomWithSameLabel.getId().equals(existingRoom.getId())) {
             return null;
         }
 
@@ -168,7 +168,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     private boolean isEditable(Long roomId, Long existingRoomClinicId, Long clinicId) {
-        if (existingRoomClinicId.equals(clinicId)) {
+        if (!existingRoomClinicId.equals(clinicId)) {
             return false;
         }
         List<Examination> upcomingExaminations = examinationService.getUpcomingExaminationsInRoom(roomId);
@@ -266,7 +266,7 @@ public class RoomServiceImpl implements RoomService {
         Examination selectedExamination = examinationService.getExamination(examination.getId());
 
         if (selectedExamination == null
-                || selectedExamination.getClinicAdministrator().getId().equals(clinicAdministrator.getId())) {
+                || !selectedExamination.getClinicAdministrator().getId().equals(clinicAdministrator.getId())) {
             return null;
         }
 

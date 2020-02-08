@@ -199,7 +199,7 @@ public class DoctorServiceImpl implements DoctorService {
         if (doctor == null) {
             return null;
         }
-        if (doctor.getClinic().getId().equals(clinicId) || !isEditable(id)) {
+        if (!doctor.getClinic().getId().equals(clinicId) || !isEditable(id)) {
             return null;
         }
 
@@ -223,7 +223,7 @@ public class DoctorServiceImpl implements DoctorService {
     public DoctorDTO editPersonalInformation(EditDoctorDTO editDoctorDTO) {
         Doctor doctor = getLoginDoctor();
 
-        if (doctor.getId().equals(editDoctorDTO.getId())) {
+        if (!doctor.getId().equals(editDoctorDTO.getId())) {
             return null;
         }
 
@@ -236,7 +236,8 @@ public class DoctorServiceImpl implements DoctorService {
         if (doctorRepository.findByPhoneNumberAndIdNot(editDoctorDTO.getPhoneNumber(), editDoctorDTO.getId()) != null) {
             return null;
         }
-        if (!workHoursFrom.equals(doctor.getWorkHoursFrom()) || !workHoursTo.equals(doctor.getWorkHoursTo()) || doctor.getSpecialized().getId().equals(editDoctorDTO.getSpecialized().getId())) {
+        if (!workHoursFrom.equals(doctor.getWorkHoursFrom()) || !workHoursTo.equals(doctor.getWorkHoursTo()) ||
+                !doctor.getSpecialized().getId().equals(editDoctorDTO.getSpecialized().getId())) {
             if (!isEditable(editDoctorDTO.getId())) {
                 return null;
             }
@@ -289,7 +290,7 @@ public class DoctorServiceImpl implements DoctorService {
 
         if (!examinations.isEmpty()) {
             for (Examination examination : examinations) {
-                if (examination.getId().equals(assignedExamination.getId()) && !examination.getInterval().isAvailable(startDateTime, endDateTime)) {
+                if (!examination.getId().equals(assignedExamination.getId()) && !examination.getInterval().isAvailable(startDateTime, endDateTime)) {
                     return false;
                 }
             }

@@ -51,7 +51,7 @@ public class ExaminationTypeServiceImpl implements ExaminationTypeService {
             return null;
         }
         ExaminationType examinationTypeWithSameLabel = examinationTypeRepository.findByLabelIgnoringCase(examinationType.getLabel());
-        if (examinationTypeWithSameLabel != null && examinationTypeWithSameLabel.getId().equals(examinationType.getId())) {
+        if (examinationTypeWithSameLabel != null && !examinationTypeWithSameLabel.getId().equals(examinationType.getId())) {
             return null;
         }
         if (!isEditable(examinationType.getId(), existingExaminationType.getClinic().getId(), clinicId)) {
@@ -86,8 +86,8 @@ public class ExaminationTypeServiceImpl implements ExaminationTypeService {
     @Override
     public List<ExaminationTypeDTO> searchTypesInClinic(Clinic clinic, String searchLabel, Double searchPrice) {
         if (searchPrice != null) {
-            return convertToDTO(examinationTypeRepository.findByClinicIdAndStatusAndLabelContainsIgnoringCaseAndPrice(clinic.getId(), LogicalStatus.EXISTING,
-                    searchLabel, searchPrice));
+            return convertToDTO(examinationTypeRepository.findByClinicIdAndStatusAndLabelContainsIgnoringCaseAndPrice(clinic.getId(),
+                    LogicalStatus.EXISTING, searchLabel, searchPrice));
         }
         return convertToDTO(examinationTypeRepository.findByClinicIdAndStatusAndLabelContainsIgnoringCase(clinic.getId(),
                 LogicalStatus.EXISTING, searchLabel));
@@ -105,7 +105,7 @@ public class ExaminationTypeServiceImpl implements ExaminationTypeService {
         if (examinationType == null) {
             return null;
         }
-        if (examinationType.getClinic().getId().equals(clinicId)) {
+        if (!examinationType.getClinic().getId().equals(clinicId)) {
             return null;
         }
 
@@ -118,7 +118,7 @@ public class ExaminationTypeServiceImpl implements ExaminationTypeService {
     }
 
     private boolean isEditable(Long examinationTypeId, Long examinationTypeClinicId, Long clinicId) {
-        if (examinationTypeClinicId.equals(clinicId)) {
+        if (!examinationTypeClinicId.equals(clinicId)) {
             return false;
         }
         List<Doctor> doctors = doctorService.findDoctorsByClinicIdAndExaminationTypeId(clinicId, examinationTypeId);

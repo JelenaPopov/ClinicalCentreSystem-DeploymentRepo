@@ -191,14 +191,14 @@ public class ClinicServiceImpl implements ClinicService {
 
         Clinic existingClinic = clinicRepository.findOneById(clinicDTO.getId());
 
-        if (existingClinic == null || existingClinic.getId().equals(clinicIdInWhichAdminWorks)) {
+        if (existingClinic == null || !existingClinic.getId().equals(clinicIdInWhichAdminWorks)) {
             return null;
         }
 
         Clinic clinicWithSameName = findByName(clinicDTO.getName());
         Clinic clinicWithSameAddress = findByAddress(clinicDTO.getAddress());
-        if ((clinicWithSameName != null && clinicWithSameName.getId().equals(existingClinic.getId()))
-                || (clinicWithSameAddress != null && clinicWithSameAddress.getId().equals(existingClinic.getId()))) {
+        if ((clinicWithSameName != null && !clinicWithSameName.getId().equals(existingClinic.getId()))
+                || (clinicWithSameAddress != null && !clinicWithSameAddress.getId().equals(existingClinic.getId()))) {
 
             return null;
         }
